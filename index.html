@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Naomie, designer UI/UX</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fffefc;--ink:#4a1020;--mute:#8a5a5e;--card:#ffffff;--line:#f7d3bb;--blue:#4a1020;--onblue:#ffffff;--p1:#fdeb8e;--p2:#ffd3b5;--p3:#ffffff;--p4:#bcd2ff;--p5:#e0c9f3;--pink-ink:#4a1020;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 72px);scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.65 "Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif}
+[hidden]{display:none!important}
+h1,h2,h3,.logo,.proj h3{font-family:"Playfair Display",Georgia,serif}
+.proj,.meta div,.tags li{border:1px solid var(--line)}
+.proj.a,.proj.b{border-color:transparent}
+.tags li{border-color:var(--line)}
+.tags li:nth-child(1),.tags li:nth-child(2){border-color:transparent}
+a{color:inherit}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:10}
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:11;display:flex;justify-content:space-between;align-items:center;padding:14px clamp(20px,5vw,64px);background:var(--bg);border-bottom:1px solid var(--line)}
+.logo{font-weight:800;font-size:1.25rem;text-decoration:none}
+.nav nav{display:flex;gap:clamp(14px,3vw,32px)}
+.nav nav a{text-decoration:none;font-weight:600;padding:4px 2px;border-bottom:2px solid transparent}
+.nav nav a:hover,.nav nav a:focus-visible{border-color:var(--blue)}
+a:focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 clamp(20px,5vw,48px)}
+.hero{padding:clamp(48px,9vw,110px) 0 clamp(40px,6vw,72px)}
+h1{font-weight:800;font-size:clamp(4.2rem,17vw,11rem);line-height:.9;letter-spacing:-.045em;margin:0 0 28px}
+.lead{font-size:clamp(1.25rem,2.6vw,1.75rem);line-height:1.35;max-width:30ch;margin:0 0 30px;font-weight:600}
+.tags{display:flex;flex-wrap:wrap;gap:10px;margin:0;padding:0;list-style:none}
+.tags li{padding:6px 16px;border-radius:999px;font-weight:600;font-size:.95rem;border:2px solid var(--ink)}
+.tags li:nth-child(1){background:var(--p1);color:#4a1020;transform:rotate(-2deg)}
+.tags li:nth-child(2){background:var(--p2);color:#4a1020;transform:rotate(1.5deg)}
+.tags li:nth-child(3){background:var(--p4);color:#4a1020;border-color:transparent;transform:rotate(-1deg)}
+h2{font-size:clamp(2rem,5vw,3.2rem);line-height:1.05;letter-spacing:-.03em;margin:0 0 8px;font-weight:800}
+section{padding:clamp(40px,6vw,80px) 0}
+.sub{color:var(--mute);margin:0 0 32px}
+.proj{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(20px,4vw,48px);align-items:center;text-decoration:none;color:var(--pink-ink);border-radius:28px;padding:clamp(24px,4vw,48px);margin-bottom:24px;transition:transform .2s}
+.proj:hover,.proj:focus-visible{transform:translateY(-4px)}
+.proj.a{background:var(--p1)}.proj.b{background:var(--p2)}
+.proj h3{font-size:clamp(1.4rem,3vw,2.1rem);line-height:1.12;letter-spacing:-.02em;margin:0 0 14px;font-weight:800}
+.proj p{margin:0 0 18px}
+.pill{display:inline-block;margin:0 8px 8px 0;padding:3px 12px;border-radius:999px;border:2px solid var(--pink-ink);font-size:.85rem;font-weight:600}
+.shot{margin:0;border:2px dashed currentColor;border-radius:16px;min-height:150px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:16px;font-size:.9rem;opacity:.75}
+.shot b{font-weight:600}
+.about{display:grid;grid-template-columns:1.3fr 1fr;gap:clamp(24px,5vw,64px);align-items:start}
+.about .shot{min-height:320px;color:var(--mute)}
+.about p{max-width:62ch}
+.facts{padding-left:1.1em;margin:0}
+.facts li{margin-bottom:8px;max-width:62ch}
+.btns{display:flex;flex-wrap:wrap;gap:14px;margin-top:24px}
+.btn{display:inline-block;padding:14px 26px;border-radius:999px;font-weight:800;text-decoration:none;border:2px solid var(--blue);background:var(--blue);color:var(--onblue)}
+.btn.o{background:transparent;color:var(--ink);border-color:var(--ink)}
+.btn:hover{transform:translateY(-2px)}
+footer{border-top:1px solid var(--line);padding:28px 0;color:var(--mute);font-size:.9rem}
+.case{padding:clamp(32px,5vw,64px) 0}
+.back{display:inline-block;margin-bottom:28px;font-weight:600;text-decoration:none;border-bottom:2px solid var(--blue)}
+.case h1{font-size:clamp(2rem,6vw,3.6rem);line-height:1.05;letter-spacing:-.03em;margin:0 0 24px;max-width:20ch}
+.case h2{font-size:1.9rem;margin:48px 0 12px}
+.case h3{font-size:1.2rem;margin:28px 0 6px;font-weight:800}
+.case p,.case li{max-width:68ch}
+.case .shot{color:var(--mute);margin:24px 0;min-height:200px}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin:0 0 32px}
+.meta div{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px}
+.meta dt{font-weight:800;margin-bottom:4px}.meta dd{margin:0;color:var(--mute)}
+.q{border-left:6px solid var(--blue);padding:4px 0 4px 20px;font-size:1.2rem;font-weight:600;max-width:46ch;margin:16px 0}
+.nav nav{align-items:center}
+.lang{font:inherit;font-weight:800;border:2px solid var(--ink);background:transparent;color:var(--ink);border-radius:999px;padding:3px 14px;cursor:pointer}
+.lang:hover{background:var(--ink);color:var(--bg)}
+.lang:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+.proj h3,.case h3,.meta dt{font-family:"Bricolage Grotesque",system-ui,sans-serif;letter-spacing:-.01em}
+.proj h3{font-weight:800}
+.meta div:nth-child(1){background:var(--p4);border-color:transparent}.meta div:nth-child(2){background:var(--p5);border-color:transparent}.meta div:nth-child(3){background:var(--p1);border-color:transparent}
+.meta dd{color:var(--ink)}
+#contact,#contact-en{background:var(--p5);border-radius:28px;padding:clamp(28px,5vw,56px);margin:0 0 56px}
+#contact .sub,#contact-en .sub{color:var(--ink)}
+.pill{background:rgba(255,255,255,.55)}
+h2 .ico{width:1.1em;height:1.1em;margin-left:.3em;vertical-align:-.12em;color:var(--ink);flex:none}
+.hero{display:grid;grid-template-columns:1fr auto;column-gap:clamp(24px,5vw,64px);align-items:center}
+.hero>*:not(.illu){grid-column:1}
+.hero h1{font-size:clamp(3.6rem,13vw,8.5rem)}
+.hero .illu{grid-column:2;grid-row:1/span 3;width:clamp(210px,27vw,300px);height:auto;transform:rotate(2deg)}
+@media (max-width:760px){.hero{grid-template-columns:1fr}.hero .illu{grid-column:1;grid-row:auto;width:210px;margin-top:32px}}
+.cap{margin:0}.cap figcaption{margin-top:8px;color:var(--mute);font-size:.92rem;line-height:1.4}
+.gal{display:grid;gap:16px;margin:24px 0}.gal img,.pic img{width:100%;height:auto;display:block;border-radius:16px;border:1px solid var(--line);background:var(--card)}.pic{margin:0}.portrait img{aspect-ratio:4/5;object-fit:cover}
+@media (max-width:760px){.proj,.about{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header class="nav">
+  <a class="logo" href="#">Naomie</a>
+  <nav aria-label="Navigation"><a href="#projets" data-fr="Projets" data-en="Projects">Projets</a><a href="#apropos" data-fr="À propos" data-en="About">À propos</a><a href="#contact" data-fr="Contact" data-en="Contact">Contact</a><button class="lang" id="lang" type="button" aria-label="Switch to English">EN</button></nav>
+</header>
+
+<main>
+<div data-view="home">
+  <div class="wrap">
+    <section class="hero">
+      <h1>Naomie</h1>
+      <p class="lead">Je conçois des expériences numériques complexes en combinant UX Research, Product Design et IA générative.</p>
+      <ul class="tags"><li>Designer UI/UX senior</li><li>Finance et technologie</li><li>Produits SaaS B2B et IA</li></ul>
+      <svg class="illu" viewBox="0 0 300 340" role="img" aria-label="Illustration de Naomie" xmlns="http://www.w3.org/2000/svg">
+<rect x="8" y="8" width="284" height="324" rx="28" fill="#fff0e4" stroke="#f7d3bb" stroke-width="2"/>
+<circle cx="58" cy="66" r="17" fill="#ffb98f"/><circle cx="252" cy="104" r="12" fill="#bcd2ff"/><circle cx="42" cy="236" r="11" fill="#e0c9f3"/><circle cx="256" cy="58" r="10" fill="#fdeb8e"/><circle cx="262" cy="196" r="8" fill="#ffb98f"/>
+<ellipse cx="152" cy="322" rx="92" ry="9" fill="#3a1a22"/>
+<path d="M96 128C90 64 128 40 152 40C192 40 214 70 208 128C210 165 214 195 222 222C190 232 114 232 84 222C94 196 98 165 96 128Z" fill="#a8705f" transform="translate(6 4)"/><path d="M96 128C90 64 128 40 152 40C192 40 214 70 208 128C210 165 214 195 222 222C190 232 114 232 84 222C94 196 98 165 96 128Z" fill="#5b3b3a" stroke="#4a1020" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M72 322C72 250 102 220 152 214C202 220 232 250 232 322Z" fill="#bcd2ff" transform="translate(6 4)"/><path d="M72 322C72 250 102 220 152 214C202 220 232 250 232 322Z" fill="#bcd2ff" stroke="#4a1020" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M120 220L152 268L184 220Z" fill="#4a1020"/>
+<path d="M138 170H166V218C160 226 144 226 138 218Z" fill="#ffcfb2" stroke="#4a1020" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M110 120C110 86 129 72 152 72C175 72 194 86 194 120C194 152 175 176 152 176C129 176 110 152 110 120Z" fill="#ffcfb2" transform="translate(5 4)"/><path d="M110 120C110 86 129 72 152 72C175 72 194 86 194 120C194 152 175 176 152 176C129 176 110 152 110 120Z" fill="#ffe3d2" stroke="#4a1020" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M108 112C120 80 180 70 196 108C178 94 140 92 108 112Z" fill="#5b3b3a" stroke="#4a1020" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<g fill="none" stroke="#4a1020" stroke-width="3" stroke-linecap="round"><circle cx="135" cy="124" r="15"/><circle cx="171" cy="124" r="15"/><path d="M150 123H156M111 119L120 122M195 119L186 122"/><path d="M138 151Q153 166 168 151"/></g>
+<circle cx="135" cy="125" r="2.6" fill="#4a1020"/><circle cx="171" cy="125" r="2.6" fill="#4a1020"/>
+<ellipse cx="126" cy="147" rx="8" ry="5" fill="#ffb3a0" opacity=".6"/><ellipse cx="180" cy="147" rx="8" ry="5" fill="#ffb3a0" opacity=".6"/>
+<path d="M226 198C244 198 244 220 226 220" fill="none" stroke="#4a1020" stroke-width="3" stroke-linecap="round"/>
+<path d="M180 192H226V214C226 228 216 236 203 236C190 236 180 228 180 214Z" fill="#bfe6dc" transform="translate(5 4)"/><path d="M180 192H226V214C226 228 216 236 203 236C190 236 180 228 180 214Z" fill="none" stroke="#4a1020" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<ellipse cx="181" cy="210" rx="9" ry="12" fill="#ffcfb2" stroke="#4a1020" stroke-width="3"/><ellipse cx="226" cy="210" rx="9" ry="12" fill="#ffcfb2" stroke="#4a1020" stroke-width="3"/>
+<path d="M200 180Q192 170 200 162Q208 154 200 146M214 184Q207 175 214 168" fill="none" stroke="#4a1020" stroke-width="2.4" stroke-linecap="round"/>
+<path d="M240 150l10-6M244 164l12 0M236 138l4-9" fill="none" stroke="#4a1020" stroke-width="2.4" stroke-linecap="round"/>
+</svg>
+    </section>
+
+    <section id="projets">
+      <h2>Projets<svg class="ico" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="24" r="14" fill="var(--p4)" stroke="none"/><rect x="9" y="9" width="30" height="22" rx="3" fill="var(--bg)"/><path d="M19 40h12M25 31v9M15 17h12M15 23h7"/></svg></h2>
+      <p class="sub">Cliquez sur chaque projet pour en savoir plus.</p>
+      <a class="proj a" href="#ia-fiscale">
+        <div>
+          <h3>Transformation du processus de préparation fiscale grâce à l’intelligence artificielle</h3>
+          <p>Un questionnaire builder et des interactions d’IA qui accélèrent le travail des préparateurs fiscaux, sans leur retirer le contrôle.</p>
+          <span class="pill">UI/UX</span><span class="pill">Product</span><span class="pill">Intelligence artificielle</span>
+        </div>
+        <figure class="pic"><img src="img/builder.webp" alt="Questionnaire builder" loading="lazy"></figure>
+      </a>
+      <a class="proj b" href="#tracking">
+        <div>
+          <h3>Modernisation d’une plateforme CRM de suivi fiscal</h3>
+          <p>Refonte complète de Tracking, un outil Kanban utilisé chaque jour par des professionnels de la fiscalité.</p>
+          <span class="pill">UI/UX</span><span class="pill">Product</span>
+        </div>
+        <figure class="pic"><img src="img/t_kanban.webp" alt="Vue Kanban de Tracking" loading="lazy"></figure>
+      </a>
+    </section>
+
+    <section id="apropos" class="about">
+      <div>
+        <h2>À propos<svg class="ico" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="22" cy="26" r="14" fill="var(--p1)" stroke="none"/><circle cx="24" cy="24" r="15" fill="var(--bg)"/><path d="M18 20v2M29 22q2-3 4 0M17 29q7 6 14 0"/></svg></h2>
+        <p>Bonjour! Je m’appelle Naomie. Je suis basée sur la Rive-Sud de Montréal et je suis designer depuis plus de 9 ans, dont plusieurs années spécialisées en conception de produits numériques UI/UX.</p>
+        <p>Au fil de mon parcours, j’ai travaillé sur des identités visuelles, des sites web, des supports imprimés, et j’ai même créé ma propre entreprise de papeterie où je concevais des agendas et des carnets.</p>
+        <p>J’ai fini par découvrir ma véritable passion : le design de produits logiciels. Je suis une designer orientée vers la résolution de problèmes. J’aime comprendre les besoins des utilisateurs, identifier leurs défis et concevoir des solutions basées sur la recherche, les données et les tests d’utilisabilité.</p>
+        <p>J’apprécie particulièrement la finance et la technologie, qui correspondent à mon expertise actuelle et aux produits complexes sur lesquels j’ai eu la chance de travailler.</p>
+        <h3>Fun facts</h3>
+        <ul class="facts">
+          <li>J’adore les chiens et j’en ai deux.</li>
+          <li>J’aime penser que j’ai un bon sens de l’humour. 😉</li>
+          <li>J’aime le café : j’ai récemment acheté une machine espresso (une Ascaso Steel Duo PID, si ça vous intéresse) et un moulin pour perfectionner l’expérience.</li>
+          <li>Je suis toujours partante pour découvrir de nouvelles cuisines ou revisiter de grands classiques.</li>
+          <li>Grande passionnée de jeux vidéo, j’ai participé à des petits et grands tournois dans différentes villes, autant pour jouer que pour regarder les compétitions.</li>
+          <li>Le vin blanc est mon incontournable.</li>
+        </ul>
+      </div>
+      <figure class="pic portrait"><img src="img/portrait.webp" alt="Portrait de Naomie" loading="lazy"></figure>
+    </section>
+
+    <section id="contact">
+      <h2>Parlons-en<svg class="ico" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="22" cy="28" r="14" fill="#fff" stroke="none"/><path d="M13 10l6-2 3 8-4 3c2 5 5 8 10 10l3-4 8 3-2 6c-1 3-4 4-7 3C20 34 12 26 10 17c-1-3 0-6 3-7z" fill="none"/><path d="M33 8l1 4M40 12l-4 2M42 20l-4 0"/></svg></h2>
+      <p class="sub">Un projet, une question, ou juste envie de dire bonjour? Écris-moi.</p>
+      <div class="btns">
+        <a class="btn" href="mailto:marleaunaomie@gmail.com">Envoie-moi un e-mail</a>
+        <a class="btn o" href="https://www.linkedin.com/in/naomiem/" target="_blank" rel="noopener">Mon LinkedIn</a>
+      </div>
+    </section>
+  </div>
+</div>
+
+<article data-view="ia-fiscale" class="case" hidden>
+  <div class="wrap">
+    <a class="back" href="#projets">← Tous les projets</a>
+    <h1>Transformation du processus de préparation fiscale grâce à l’intelligence artificielle</h1>
+    <dl class="meta">
+      <div><dt>Mon rôle</dt><dd>Senior UI/UX Designer</dd></div>
+      <div><dt>Type de produit</dt><dd>Solution B2B SaaS, workflow fiscal assisté par l’IA</dd></div>
+      <div><dt>Équipe</dt><dd>Product Owners, Product Managers, développeurs, experts métier en fiscalité, deux designers UX/UI</dd></div>
+    </dl>
+    <div class="gal"><figure class="cap"><img src="img/flow.webp" alt="Aperçu animé du questionnaire builder" loading="lazy"><figcaption>Aperçu animé du questionnaire builder</figcaption></figure></div>
+
+    <h2>Contexte</h2>
+    <p>Les professionnels de la fiscalité gèrent un processus complexe de collecte d’informations, de validation de documents et de saisie de données. Plusieurs étapes manuelles sont longues et répétitives, particulièrement en période de pointe.</p>
+    <p>L’objectif était de concevoir une expérience assistée par l’IA qui permet aux préparateurs d’automatiser certaines tâches et de réduire les tâches administratives, tout en conservant le contrôle et la validation humaine nécessaires dans un contexte fiscal réglementé.</p>
+    <div class="gal"><figure class="cap"><img src="img/figma.webp" alt="Phase de découverte dans Figma" loading="lazy"><figcaption>Phase de découverte dans Figma</figcaption></figure><figure class="cap"><img src="img/miro.webp" alt="Workflows dans Miro" loading="lazy"><figcaption>Workflows dans Miro</figcaption></figure></div>
+    <p>J’ai principalement contribué à la conception du questionnaire builder, à une partie des interactions liées à l’IA dans ce workflow, ainsi qu’à l’expérience d’import des informations dans la déclaration fiscale.</p>
+
+    <h2>Défis</h2>
+    <p class="q">Comment permettre aux préparateurs d’utiliser l’IA pour accélérer leur travail, tout en conservant la transparence, la confiance et le contrôle nécessaires pour valider des informations critiques?</p>
+    <h3>Concevoir une nouvelle expérience dans un écosystème existant</h3>
+    <p>Respecter les patterns et contraintes des produits existants, rester cohérent avec l’écosystème actuel et introduire des capacités d’IA sans rupture dans les habitudes des utilisateurs.</p>
+    <h3>Favoriser l’adoption d’un nouveau processus de travail</h3>
+    <p>Les préparateurs sont des experts aux méthodes établies. Il fallait améliorer leur processus plutôt que le remplacer, rendre visibles les actions de l’IA et préserver leur sentiment de contrôle.</p>
+    <h3>Simplifier un processus complexe</h3>
+    <p>Les règles fiscales et les profils clients rendent la collecte difficile à standardiser. L’outil devait être assez flexible pour couvrir plusieurs scénarios, tout en restant simple à utiliser.</p>
+    <div class="gal"><figure class="cap"><img src="img/old.webp" alt="Ancien processus des firmes" loading="lazy"><figcaption>Ancien processus des firmes</figcaption></figure></div>
+
+    <h2>Ma contribution</h2>
+    <h3>1. Questionnaire builder</h3>
+    <p>J’ai conçu l’expérience qui permet aux préparateurs de créer des questionnaires personnalisés selon la situation de chaque client.</p>
+    <ul>
+      <li>Création de questionnaires avec un form builder et ajout de questions par section.</li>
+      <li>Logiques conditionnelles pour n’afficher que les questions pertinentes. Un client retraité de 75 ans ne reçoit pas les mêmes questions qu’un autre profil.</li>
+      <li>Paramètres personnalisables selon les profils clients.</li>
+      <li>Association des réponses aux champs correspondants des formulaires fiscaux.</li>
+    </ul>
+    <div class="gal"><figure class="cap"><img src="img/sections.webp" alt="Questionnaire builder avec sections" loading="lazy"><figcaption>Questionnaire builder avec sections</figcaption></figure><figure class="cap"><img src="img/question.webp" alt="Paramètres d’une question avec logique conditionnelle" loading="lazy"><figcaption>Paramètres d’une question avec logique conditionnelle</figcaption></figure><figure class="cap"><img src="img/cell.webp" alt="Lier une question à une cellule du formulaire" loading="lazy"><figcaption>Lier une question à une cellule du formulaire</figcaption></figure></div>
+    <h3>2. L’IA dans le questionnaire</h3>
+    <p>J’ai contribué aux interactions entre le questionnaire et l’IA, qui identifie les informations pertinentes dans les documents clients, complète certaines parties du questionnaire et assiste la collecte de données. Une attention particulière a été portée à la compréhension des suggestions, à la possibilité de vérifier et corriger, et au maintien du contrôle humain sur les décisions finales.</p>
+    <h3>3. Import dans la déclaration fiscale</h3>
+    <p>J’ai conçu l’expérience qui permet de récupérer les informations du questionnaire et de les intégrer à la déclaration : visualiser les données disponibles, choisir quoi importer, vérifier les valeurs proposées et les modifier avant l’intégration finale.</p>
+    <div class="gal"><figure class="cap"><img src="img/extract.webp" alt="Fichiers prêts à importer" loading="lazy"><figcaption>Fichiers prêts à importer</figcaption></figure><figure class="cap"><img src="img/doc.webp" alt="Révision d’un fichier" loading="lazy"><figcaption>Révision d’un fichier</figcaption></figure><figure class="cap"><img src="img/reviewed.webp" alt="Tout révisé avant l’import" loading="lazy"><figcaption>Tout révisé avant l’import</figcaption></figure></div>
+
+    <h2>Solution globale</h2>
+    <ol>
+      <li>Créer un questionnaire personnalisé selon le profil du client.</li>
+      <li>L’envoyer à plusieurs clients simultanément.</li>
+      <li>Laisser les clients répondre dans leur portail personnalisé.</li>
+      <li>Collecter automatiquement les documents nécessaires.</li>
+      <li>Utiliser l’IA pour analyser, classifier et extraire les informations pertinentes.</li>
+      <li>Réviser et importer les informations directement dans la déclaration.</li>
+    </ol>
+    <div class="gal"><figure class="cap"><img src="img/portal.webp" alt="Portail client avec actions en lot" loading="lazy"><figcaption>Portail client avec actions en lot</figcaption></figure></div>
+
+    <h2>Approche UX</h2>
+    <ul>
+      <li>Analyse des besoins utilisateurs et des processus existants.</li>
+      <li>Collaboration étroite avec les experts métier et les équipes produit.</li>
+      <li>Parcours utilisateurs et scénarios complexes.</li>
+      <li>Wireframes, maquettes haute fidélité et prototypes interactifs.</li>
+      <li>Validation des concepts avec les parties prenantes et itérations selon les contraintes techniques.</li>
+    </ul>
+    <p>Le design system existant de l’entreprise a servi de fondation, pour assurer la cohérence visuelle et faciliter l’implémentation.</p>
+
+    <h2>Impact</h2>
+    <ul>
+      <li>Moins de tâches manuelles répétitives.</li>
+      <li>Collecte d’informations plus rapide, données mieux structurées.</li>
+      <li>Plus de temps pour les tâches à valeur ajoutée.</li>
+      <li>Une approche assistée par l’IA qui maintient la confiance des utilisateurs.</li>
+    </ul>
+
+    <h2>Réflexion personnelle</h2>
+    <p>Ce projet m’a permis d’explorer des expériences où l’IA agit comme un assistant plutôt qu’un remplacement de l’utilisateur. La principale question UX était de trouver le bon équilibre entre automatisation et contrôle humain : accélérer le processus tout en donnant aux professionnels la visibilité et la capacité de décision dont ils ont besoin.</p>
+    <div class="btns"><a class="btn o" href="#tracking">Projet suivant : Tracking</a></div>
+  </div>
+</article>
+
+<article data-view="tracking" class="case" hidden>
+  <div class="wrap">
+    <a class="back" href="#projets">← Tous les projets</a>
+    <h1>Modernisation d’une plateforme CRM de suivi fiscal pour améliorer l’efficacité des professionnels</h1>
+    <dl class="meta">
+      <div><dt>Secteur</dt><dd>Technologie, finance</dd></div>
+      <div><dt>Mon rôle</dt><dd>Senior UI/UX Designer : recherche, analyse, design</dd></div>
+      <div><dt>Objectif</dt><dd>Repenser la section CRM pour l’aligner sur l’image de marque, avec une expérience plus intuitive, cohérente et facile à naviguer</dd></div>
+    </dl>
+    <div class="gal"><figure class="cap"><img src="img/t_kanban.webp" alt="Vue Kanban de Tracking" loading="lazy"><figcaption>Vue Kanban de Tracking</figcaption></figure></div>
+
+    <h2>Contexte</h2>
+    <p>Tracking est une plateforme CRM utilisée par les professionnels de la fiscalité pour suivre l’avancement des déclarations clients. Elle repose sur une approche inspirée des tableaux Kanban : les déclarations sont des cartes qui avancent dans les étapes de préparation, de révision et de finalisation. Chaque cabinet configure ses propres catégories.</p>
+    <p>Au fil des années, le produit avait évolué rapidement pour répondre à des besoins immédiats, ce qui avait mené à une interface vieillissante, une expérience incohérente et certaines limitations de performance. Le projet visait à tout moderniser tout en préservant les workflows essentiels du quotidien.</p>
+
+    <h2>Mon rôle</h2>
+    <p>J’ai contribué à la refonte complète de l’expérience, en collaboration avec les équipes produit, développement et autres parties prenantes.</p>
+    <ul>
+      <li>Participer à la définition de la nouvelle expérience utilisateur.</li>
+      <li>Repenser l’interface complète du produit de façon cohérente et moderne.</li>
+      <li>Concevoir des composants et interactions alignés avec le design system de l’entreprise.</li>
+      <li>Améliorer la fluidité des actions quotidiennes.</li>
+      <li>Collaborer avec les développeurs pour une implantation efficace.</li>
+      <li>Contribuer à l’intégration de Tracking avec d’autres produits de l’écosystème Wolters Kluwer.</li>
+    </ul>
+    <div class="gal"><figure class="cap"><img src="img/t_old.webp" alt="Tracking avant la refonte" loading="lazy"><figcaption>Tracking avant la refonte</figcaption></figure></div>
+
+    <h2>Défis</h2>
+    <h3>Moderniser sans perturber les utilisateurs</h3>
+    <p>Conserver les workflows existants, les habitudes essentielles et la flexibilité nécessaire aux différents types de cabinets.</p>
+    <h3>Transformer une interface vieillissante en expérience cohérente</h3>
+    <p>Corriger une interface désuète, des interactions inconsistantes et une expérience peu intuitive, en reconstruisant de A à Z dans le respect des contraintes techniques.</p>
+    <h3>Créer un écosystème de produits connecté</h3>
+    <p>Faire de Tracking plus qu’un outil isolé, en assurant une expérience cohérente avec les autres solutions Wolters Kluwer, notamment les outils de facturation.</p>
+
+    <h2>Solution</h2>
+    <h3>Refonte complète de l’expérience</h3>
+    <p>Nouvelle hiérarchie visuelle, interface modernisée, navigation améliorée, actions simplifiées et gestion des déclarations plus fluide.</p>
+    <h3>Amélioration du workflow Kanban</h3>
+    <p>Le système de cartes a été conservé pour respecter le modèle mental des utilisateurs. Il est maintenant plus facile de visualiser l’avancement, de déplacer les cartes, d’adapter les workflows aux cabinets et de réduire la friction au quotidien.</p>
+    <div class="gal"><figure class="cap"><img src="img/t_drag.webp" alt="Drag and drop entre les étapes" loading="lazy"><figcaption>Drag and drop entre les étapes</figcaption></figure></div>
+    <h3>Intégration avec l’écosystème Wolters Kluwer</h3>
+    <p>Tracking est connecté à d’autres produits de l’écosystème pour offrir une expérience plus intégrée entre les outils professionnels.</p>
+    <div class="gal"><figure class="cap"><img src="img/t_card.webp" alt="Carte détaillée" loading="lazy"><figcaption>Carte détaillée</figcaption></figure></div>
+
+    <h2>Approche UX</h2>
+    <ul>
+      <li>Analyse des problèmes de l’expérience existante.</li>
+      <li>Exploration des besoins utilisateurs et des contraintes métier.</li>
+      <li>Concepts d’interface, maquettes et prototypes interactifs.</li>
+      <li>Collaboration avec les équipes produit et développement.</li>
+      <li>Validation selon les contraintes techniques et les besoins des utilisateurs.</li>
+    </ul>
+
+    <h2>Décisions de design clés</h2>
+    <h3>1. Préserver l’accès en un clic aux actions fréquentes</h3>
+    <p>L’une des principales exigences des utilisateurs était de ne pas ajouter de navigation inutile. Les utilisateurs ne travaillent pas tous de la même façon : les gestionnaires s’appuient souvent sur les statistiques du tableau de bord, alors que les préparateurs se concentrent sur leurs dossiers actifs. Nous avons donc ajouté des statistiques repliables, ce qui libère de l’espace à l’écran lorsque ces indicateurs ne sont pas nécessaires, sans multiplier les dispositions.</p>
+    <div class="gal"><figure class="cap"><img src="img/t_expanded.webp" alt="Statistiques du tableau de bord dépliées" loading="lazy"><figcaption>Statistiques du tableau de bord dépliées</figcaption></figure><figure class="cap"><img src="img/t_collapsed.webp" alt="Statistiques du tableau de bord repliées" loading="lazy"><figcaption>Statistiques du tableau de bord repliées</figcaption></figure></div>
+    <h3>2. Moderniser l’expérience Kanban sans changer le modèle mental</h3>
+    <p>Tracking était déjà organisé autour d’un workflow Kanban que les utilisateurs comprenaient bien. Plutôt que de le réinventer, nous l’avons raffiné : séparation visuelle plus claire entre les étapes, moins de bruit visuel, meilleure hiérarchie et lisibilité, et cartes plus faciles à parcourir en période de pointe.</p>
+    <h3>3. Réduire la friction grâce à la manipulation directe</h3>
+    <p>Gérer des centaines de déclarations chaque jour demande des interactions efficaces. Nous avons introduit le glisser-déposer pour déplacer les déclarations d’une étape à l’autre, ce qui réduit le nombre de clics pour les actions courantes et rend les changements de statut plus rapides et plus intuitifs.</p>
+
+    <h2>Principes de design</h2>
+    <ul>
+      <li>Préserver les modèles mentaux existants des utilisateurs.</li>
+      <li>Réduire la charge cognitive.</li>
+      <li>Améliorer la hiérarchie de l’information.</li>
+      <li>Garder les actions fréquentes accessibles.</li>
+      <li>Augmenter la flexibilité sans augmenter la complexité.</li>
+      <li>Moderniser sans perturber les workflows établis.</li>
+    </ul>
+
+    <h2>Impact</h2>
+    <ul>
+      <li>Une expérience utilisateur modernisée.</li>
+      <li>Une meilleure fluidité dans les actions quotidiennes.</li>
+      <li>Une interface plus cohérente avec l’écosystème Wolters Kluwer.</li>
+      <li>Une base plus solide pour l’évolution future du produit.</li>
+      <li>Une meilleure performance et réactivité de l’application.</li>
+    </ul>
+    <h2>Ce que j’en retiens</h2>
+    <p>Repenser un produit d’entreprise mature, ce n’est pas seulement rafraîchir l’interface. Le plus grand défi est de trouver l’équilibre entre innovation et familiarité : améliorer l’utilisabilité tout en respectant les workflows existants, les contraintes d’affaires et l’architecture du produit.</p>
+    <div class="btns"><a class="btn o" href="#ia-fiscale">Projet précédent : IA et fiscalité</a></div>
+  </div>
+</article>
+<div data-view="home" data-lang="en" hidden>
+  <div class="wrap">
+    <section class="hero">
+      <h1>Naomie</h1>
+      <p class="lead" style="max-width:40ch">I design enterprise digital products by combining UX Research, Product Design, and Generative AI to solve complex user and business challenges.</p>
+      <ul class="tags"><li>Senior UI/UX Designer</li><li>Finance and technology</li><li>B2B SaaS and AI products</li></ul>
+      <svg class="illu" viewBox="0 0 300 340" role="img" aria-label="Illustration de Naomie" xmlns="http://www.w3.org/2000/svg">
+<rect x="8" y="8" width="284" height="324" rx="28" fill="#fff0e4" stroke="#f7d3bb" stroke-width="2"/>
+<circle cx="58" cy="66" r="17" fill="#ffb98f"/><circle cx="252" cy="104" r="12" fill="#bcd2ff"/><circle cx="42" cy="236" r="11" fill="#e0c9f3"/><circle cx="256" cy="58" r="10" fill="#fdeb8e"/><circle cx="262" cy="196" r="8" fill="#ffb98f"/>
+<ellipse cx="152" cy="322" rx="92" ry="9" fill="#3a1a22"/>
+<path d="M96 128C90 64 128 40 152 40C192 40 214 70 208 128C210 165 214 195 222 222C190 232 114 232 84 222C94 196 98 165 96 128Z" fill="#a8705f" transform="translate(6 4)"/><path d="M96 128C90 64 128 40 152 40C192 40 214 70 208 128C210 165 214 195 222 222C190 232 114 232 84 222C94 196 98 165 96 128Z" fill="#5b3b3a" stroke="#4a1020" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M72 322C72 250 102 220 152 214C202 220 232 250 232 322Z" fill="#bcd2ff" transform="translate(6 4)"/><path d="M72 322C72 250 102 220 152 214C202 220 232 250 232 322Z" fill="#bcd2ff" stroke="#4a1020" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M120 220L152 268L184 220Z" fill="#4a1020"/>
+<path d="M138 170H166V218C160 226 144 226 138 218Z" fill="#ffcfb2" stroke="#4a1020" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M110 120C110 86 129 72 152 72C175 72 194 86 194 120C194 152 175 176 152 176C129 176 110 152 110 120Z" fill="#ffcfb2" transform="translate(5 4)"/><path d="M110 120C110 86 129 72 152 72C175 72 194 86 194 120C194 152 175 176 152 176C129 176 110 152 110 120Z" fill="#ffe3d2" stroke="#4a1020" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M108 112C120 80 180 70 196 108C178 94 140 92 108 112Z" fill="#5b3b3a" stroke="#4a1020" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<g fill="none" stroke="#4a1020" stroke-width="3" stroke-linecap="round"><circle cx="135" cy="124" r="15"/><circle cx="171" cy="124" r="15"/><path d="M150 123H156M111 119L120 122M195 119L186 122"/><path d="M138 151Q153 166 168 151"/></g>
+<circle cx="135" cy="125" r="2.6" fill="#4a1020"/><circle cx="171" cy="125" r="2.6" fill="#4a1020"/>
+<ellipse cx="126" cy="147" rx="8" ry="5" fill="#ffb3a0" opacity=".6"/><ellipse cx="180" cy="147" rx="8" ry="5" fill="#ffb3a0" opacity=".6"/>
+<path d="M226 198C244 198 244 220 226 220" fill="none" stroke="#4a1020" stroke-width="3" stroke-linecap="round"/>
+<path d="M180 192H226V214C226 228 216 236 203 236C190 236 180 228 180 214Z" fill="#bfe6dc" transform="translate(5 4)"/><path d="M180 192H226V214C226 228 216 236 203 236C190 236 180 228 180 214Z" fill="none" stroke="#4a1020" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<ellipse cx="181" cy="210" rx="9" ry="12" fill="#ffcfb2" stroke="#4a1020" stroke-width="3"/><ellipse cx="226" cy="210" rx="9" ry="12" fill="#ffcfb2" stroke="#4a1020" stroke-width="3"/>
+<path d="M200 180Q192 170 200 162Q208 154 200 146M214 184Q207 175 214 168" fill="none" stroke="#4a1020" stroke-width="2.4" stroke-linecap="round"/>
+<path d="M240 150l10-6M244 164l12 0M236 138l4-9" fill="none" stroke="#4a1020" stroke-width="2.4" stroke-linecap="round"/>
+</svg>
+    </section>
+    <section id="projets-en">
+      <h2>Projects<svg class="ico" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="24" r="14" fill="var(--p4)" stroke="none"/><rect x="9" y="9" width="30" height="22" rx="3" fill="var(--bg)"/><path d="M19 40h12M25 31v9M15 17h12M15 23h7"/></svg></h2>
+      <p class="sub">Click on a project to explore the full case study.</p>
+      <a class="proj a" href="#ia-fiscale">
+        <div>
+          <h3>AI-Powered Tax Preparation Workflow</h3>
+          <p>A configurable questionnaire builder and AI-assisted interactions that speed up tax professionals’ work while keeping them in control.</p>
+          <span class="pill">Enterprise SaaS</span><span class="pill">Product Design</span><span class="pill">UX Research</span><span class="pill">Workflow Design</span><span class="pill">AI</span>
+        </div>
+        <figure class="pic"><img src="img/builder.webp" alt="Questionnaire builder" loading="lazy"></figure>
+      </a>
+      <a class="proj b" href="#tracking">
+        <div>
+          <h3>Modernizing an Enterprise Tax Workflow Platform</h3>
+          <p>A ground-up redesign of Tracking, a Kanban-style CRM that tax professionals use every day.</p>
+          <span class="pill">Enterprise SaaS</span><span class="pill">Product Design</span><span class="pill">CRM</span><span class="pill">UX/UI</span><span class="pill">Workflow Optimization</span>
+        </div>
+        <figure class="pic"><img src="img/t_kanban.webp" alt="Tracking Kanban view" loading="lazy"></figure>
+      </a>
+    </section>
+    <section id="apropos-en" class="about">
+      <div>
+        <h2>About<svg class="ico" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="22" cy="26" r="14" fill="var(--p1)" stroke="none"/><circle cx="24" cy="24" r="15" fill="var(--bg)"/><path d="M18 20v2M29 22q2-3 4 0M17 29q7 6 14 0"/></svg></h2>
+        <p>Hi! I’m Naomie, a Senior UI/UX Designer based on Montreal’s South Shore. I’ve been working in design for over 9 years, with the last several years focused on designing digital products and user experiences.</p>
+        <p>Throughout my career, I’ve worked on a wide range of projects, from branding and websites to print design. I also founded my own stationery business, where I designed planners and notebooks while managing every aspect of the business, from product design to customer experience.</p>
+        <p>Over time, I discovered my true passion: Product Design. I’m a problem-solving designer who enjoys tackling complex challenges. I love understanding users, uncovering pain points, and designing thoughtful solutions grounded in user research, data, and usability testing.</p>
+        <p>I particularly enjoy working in the finance and technology industries, where I’ve had the opportunity to design enterprise software and solve complex workflow challenges that have a meaningful impact on users.</p>
+        <h3>Fun facts</h3>
+        <ul class="facts">
+          <li>🐶 I’m a huge dog lover and I have two of them.</li>
+          <li>😄 I’d like to think I have a pretty good sense of humor.</li>
+          <li>☕ I’m a coffee enthusiast. I recently upgraded my setup with an Ascaso Steel Duo PID espresso machine and a grinder to take my coffee game to the next level.</li>
+          <li>🍜 I’m always up for trying new foods or revisiting old favorites.</li>
+          <li>🎮 I’m a big video game fan. I’ve attended both small and major gaming tournaments across different cities, whether to compete or simply enjoy the event.</li>
+          <li>🍷 White wine is my go-to.</li>
+        </ul>
+      </div>
+      <figure class="pic portrait"><img src="img/portrait.webp" alt="Portrait of Naomie" loading="lazy"></figure>
+    </section>
+    <section id="contact-en">
+      <h2>Let’s talk<svg class="ico" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="22" cy="28" r="14" fill="#fff" stroke="none"/><path d="M13 10l6-2 3 8-4 3c2 5 5 8 10 10l3-4 8 3-2 6c-1 3-4 4-7 3C20 34 12 26 10 17c-1-3 0-6 3-7z" fill="none"/><path d="M33 8l1 4M40 12l-4 2M42 20l-4 0"/></svg></h2>
+      <p class="sub">A project, a question, or just want to say hi? Write to me.</p>
+      <div class="btns">
+        <a class="btn" href="mailto:marleaunaomie@gmail.com">Email me</a>
+        <a class="btn o" href="https://www.linkedin.com/in/naomiem/" target="_blank" rel="noopener">My LinkedIn</a>
+      </div>
+    </section>
+  </div>
+</div>
+
+<article data-view="ia-fiscale" data-lang="en" class="case" hidden>
+  <div class="wrap">
+    <a class="back" href="#projets">← All projects</a>
+    <h1>AI-Powered Tax Preparation Workflow</h1>
+    <dl class="meta">
+      <div><dt>My role</dt><dd>Senior UI/UX Designer</dd></div>
+      <div><dt>Product</dt><dd>Enterprise B2B SaaS platform for tax professionals</dd></div>
+      <div><dt>Team</dt><dd>Product Owners, Product Managers, Software Engineers, Tax Subject Matter Experts, two Product Designers</dd></div>
+    </dl>
+    <div class="gal"><figure class="cap"><img src="img/flow.webp" alt="Animated preview of the questionnaire builder" loading="lazy"><figcaption>Animated preview of the questionnaire builder</figcaption></figure></div>
+
+    <h2>Overview</h2>
+    <p>Tax professionals manage a highly complex workflow involving client communication, document collection, data validation, and tax return preparation. During peak tax season, these manual processes become repetitive, time-consuming, and prone to errors.</p>
+    <p>Our goal was to design an AI-assisted tax preparation workflow that streamlines information gathering, automates repetitive tasks, and improves efficiency while preserving the transparency, trust, and human oversight required in a highly regulated industry.</p>
+    <div class="gal"><figure class="cap"><img src="img/figma.webp" alt="Discovery phase in Figma" loading="lazy"><figcaption>Discovery phase in Figma</figcaption></figure><figure class="cap"><img src="img/miro.webp" alt="Workflows in Miro" loading="lazy"><figcaption>Workflows in Miro</figcaption></figure></div>
+
+    <h2>My role</h2>
+    <p>I was primarily responsible for the design of the Questionnaire Builder, portions of the AI-assisted workflow, and the data import experience that lets tax professionals review and import client information directly into tax returns.</p>
+    <ul>
+      <li>Designing complex user workflows</li>
+      <li>Creating wireframes and interactive prototypes</li>
+      <li>Defining conditional logic interactions</li>
+      <li>Designing AI-assisted user experiences</li>
+      <li>Collaborating with Product Managers, Engineers and SMEs</li>
+      <li>Iterating designs based on stakeholder feedback</li>
+    </ul>
+
+    <h2>Challenges</h2>
+    <p class="q">Designing an AI-powered workflow wasn’t only a technology challenge, it was also a product and adoption challenge.</p>
+    <h3>Working within an existing product ecosystem</h3>
+    <p>The new workflow had to integrate seamlessly into an established suite of enterprise tax products: respect existing patterns and workflows, stay consistent with the company’s Design System, and introduce AI capabilities without disrupting familiar user behaviors.</p>
+    <h3>Encouraging adoption</h3>
+    <p>Tax professionals are expert users who rely on well-established workflows. Instead of replacing those workflows, our goal was to enhance them: maintain user trust, keep professionals in control of every decision, and make AI suggestions understandable and transparent.</p>
+    <h3>Simplifying complexity</h3>
+    <p>Tax preparation involves countless client scenarios. The challenge was creating a flexible questionnaire builder that supports highly configurable workflows while remaining intuitive for everyday users.</p>
+    <div class="gal"><figure class="cap"><img src="img/old.webp" alt="Firms’ previous process" loading="lazy"><figcaption>Firms’ previous process</figcaption></figure></div>
+
+    <h2>Contribution</h2>
+    <h3>1. Questionnaire Builder</h3>
+    <p>I led the UX/UI design of a configurable questionnaire builder that enables firms to create personalized tax questionnaires.</p>
+    <ul>
+      <li>Drag-and-drop questionnaire creation</li>
+      <li>Custom sections</li>
+      <li>Configurable question types</li>
+      <li>Conditional logic</li>
+      <li>Field mapping to tax forms</li>
+      <li>Firm-level customization</li>
+    </ul>
+    <p>Instead of creating one static questionnaire, firms can build reusable workflows tailored to different client profiles. For example, a retired client doesn’t receive the same questions as a self-employed business owner.</p>
+    <div class="gal"><figure class="cap"><img src="img/sections.webp" alt="Questionnaire builder with sections" loading="lazy"><figcaption>Questionnaire builder with sections</figcaption></figure><figure class="cap"><img src="img/question.webp" alt="Question settings with conditional logic" loading="lazy"><figcaption>Question settings with conditional logic</figcaption></figure><figure class="cap"><img src="img/cell.webp" alt="Linking a question to a form cell" loading="lazy"><figcaption>Linking a question to a form cell</figcaption></figure></div>
+    <h3>2. AI-assisted Questionnaire</h3>
+    <p>I collaborated on the user experience around AI-powered document analysis. The AI detects relevant information in uploaded documents, pre-fills questionnaire responses, and reduces manual data entry. A major design consideration was making sure users understood what the AI detected, how confident it was, and how to review or modify suggested values before proceeding.</p>
+    <h3>3. Tax Return Import Experience</h3>
+    <p>Once questionnaires are completed, professionals can review all collected information before importing it into the client’s tax return: preview the data, select what to import, edit incorrect values, and keep complete control before finalizing. Rather than replacing professional judgment, AI accelerates repetitive work while keeping people in control.</p>
+    <div class="gal"><figure class="cap"><img src="img/extract.webp" alt="Files ready to import" loading="lazy"><figcaption>Files ready to import</figcaption></figure><figure class="cap"><img src="img/doc.webp" alt="Reviewing a file" loading="lazy"><figcaption>Reviewing a file</figcaption></figure><figure class="cap"><img src="img/reviewed.webp" alt="Everything reviewed before import" loading="lazy"><figcaption>Everything reviewed before import</figcaption></figure></div>
+
+    <h2>Global Solution</h2>
+    <p>The end-to-end workflow enables tax professionals to:</p>
+    <ol>
+      <li>Build custom questionnaires</li>
+      <li>Send them in bulk to multiple clients</li>
+      <li>Collect responses through the client portal</li>
+      <li>Automatically request supporting documents</li>
+      <li>Analyze documents using AI</li>
+      <li>Classify and organize uploaded files</li>
+      <li>Pre-fill questionnaire responses</li>
+      <li>Review AI-generated information</li>
+      <li>Import validated data directly into tax returns</li>
+    </ol>
+    <div class="gal"><figure class="cap"><img src="img/portal.webp" alt="Client portal with bulk actions" loading="lazy"><figcaption>Client portal with bulk actions</figcaption></figure></div>
+
+    <h2>Design Process</h2>
+    <ul>
+      <li>Discovery workshops and workflow mapping</li>
+      <li>User flow creation and wireframing</li>
+      <li>High-fidelity UI design and interactive prototyping</li>
+      <li>Cross-functional collaboration and design validation</li>
+      <li>Iterative improvements</li>
+    </ul>
+    <p>Existing Design System components were leveraged to maintain consistency across the Wolters Kluwer ecosystem.</p>
+
+    <h2>Outcome</h2>
+    <p>The redesigned workflow modernized a traditionally manual tax preparation process.</p>
+    <ul>
+      <li>Reduced manual data entry</li>
+      <li>Faster information collection</li>
+      <li>Improved data quality</li>
+      <li>Increased efficiency for tax professionals</li>
+      <li>AI-assisted workflows while maintaining human oversight</li>
+      <li>Better scalability for firms handling large client volumes</li>
+    </ul>
+
+    <h2>Key Takeaways</h2>
+    <p>Designing AI products isn’t about replacing users. It’s about building experiences where AI supports people’s expertise while preserving trust, transparency, and control.</p>
+    <div class="btns"><a class="btn o" href="#tracking">Next project: Tracking</a></div>
+  </div>
+</article>
+
+<article data-view="tracking" data-lang="en" class="case" hidden>
+  <div class="wrap">
+    <a class="back" href="#projets">← All projects</a>
+    <h1>Modernizing an Enterprise Tax Workflow Platform</h1>
+    <dl class="meta">
+      <div><dt>Industry</dt><dd>Enterprise Software, FinTech</dd></div>
+      <div><dt>Role</dt><dd>UX Research, Product Design, UI Design, Prototyping</dd></div>
+      <div><dt>Objective</dt><dd>Redesign the CRM experience to align with Wolters Kluwer’s product ecosystem while improving usability, performance, and workflow efficiency for tax professionals</dd></div>
+    </dl>
+    <div class="gal"><figure class="cap"><img src="img/t_kanban.webp" alt="Tracking Kanban view" loading="lazy"><figcaption>Tracking Kanban view</figcaption></figure></div>
+
+    <h2>Overview</h2>
+    <p>Tracking is an enterprise CRM platform used by tax professionals to manage and monitor the progress of client tax returns. It follows a Kanban-inspired workflow: each tax return is a card that moves through customizable stages defined by each accounting firm.</p>
+    <p>Over time, the product had grown organically to meet immediate business needs, resulting in an outdated interface, inconsistent interactions, and performance limitations. The objective was not simply to redesign the interface, but to modernize the entire experience while preserving the workflows professionals relied on every day.</p>
+
+    <h2>My role: Senior UI/UX Designer</h2>
+    <p>Working closely with Product Managers, Engineers, and stakeholders, I contributed to the complete redesign of the Tracking experience.</p>
+    <ul>
+      <li>Defining the future user experience for the platform</li>
+      <li>Redesigning the interface using the company’s Design System</li>
+      <li>Creating wireframes, high-fidelity mockups, and interactive prototypes</li>
+      <li>Improving navigation and workflow efficiency</li>
+      <li>Simplifying complex user interactions</li>
+      <li>Collaborating closely with Engineering throughout implementation</li>
+      <li>Supporting the integration of Tracking with other Wolters Kluwer products, including Billing</li>
+    </ul>
+    <div class="gal"><figure class="cap"><img src="img/t_old.webp" alt="Tracking before the redesign" loading="lazy"><figcaption>Tracking before the redesign</figcaption></figure></div>
+
+    <h2>Challenges</h2>
+    <h3>Modernize a mission-critical platform used daily during peak tax season</h3>
+    <p>Tracking was a mature product used daily by experienced professionals. We had to modernize it without disrupting established workflows: preserve existing mental models, improve usability without increasing the learning curve, and respect technical and product constraints.</p>
+    <h3>Redesigning a product built for speed</h3>
+    <p>New features had been added rapidly over several years, leaving an outdated visual interface, inconsistent interaction patterns, complex navigation, and performance bottlenecks. The redesign aimed to establish a scalable foundation for the future.</p>
+    <h3>Building a connected product ecosystem</h3>
+    <p>Tracking was no longer meant to be a standalone application. A key objective was integrating it with the broader Wolters Kluwer ecosystem, including Billing and other enterprise products.</p>
+
+    <h2>My contribution</h2>
+    <h3>Complete UI redesign</h3>
+    <p>I helped redesign the platform from the ground up, with a cleaner, more modern interface aligned with the Design System: improved visual hierarchy, simplified navigation, consistent interaction patterns, and reduced visual complexity.</p>
+    <h3>Optimizing the Kanban workflow</h3>
+    <p>Rather than replacing the existing workflow, we enhanced it while preserving users’ established mental model. Professionals can now monitor progress more efficiently, move cards with drag and drop, customize workflows to firm-specific processes, and face less friction in everyday tasks.</p>
+    <div class="gal"><figure class="cap"><img src="img/t_collapsed.webp" alt="Kanban view with faster access to key actions" loading="lazy"><figcaption>Kanban view with faster access to key actions</figcaption></figure></div>
+    <h3>Cross-product integration</h3>
+    <p>Tracking was redesigned to integrate with other Wolters Kluwer products, so professionals can move naturally between related workflows without feeling they are switching between disconnected applications.</p>
+    <div class="gal"><figure class="cap"><img src="img/t_card.webp" alt="Detailed card" loading="lazy"><figcaption>Detailed card</figcaption></figure><figure class="cap"><img src="img/t_billing.webp" alt="Card with the Billing product" loading="lazy"><figcaption>Card with the Billing product</figcaption></figure></div>
+
+    <h2>Design Process</h2>
+    <ul>
+      <li>UX analysis of the existing platform and workflow analysis</li>
+      <li>User journey mapping and information architecture</li>
+      <li>Wireframing, high-fidelity UI design, and interactive prototyping</li>
+      <li>Cross-functional collaboration and design validation</li>
+      <li>Iterative refinement</li>
+    </ul>
+    <p>All solutions were built using the existing Design System to ensure consistency across the product suite.</p>
+
+    <h2>Key Design Decisions</h2>
+    <h3>1. Preserve one-click access to high-frequency actions</h3>
+    <p>One of the biggest user requirements was to avoid adding unnecessary navigation. Different users also work differently: managers often rely on dashboard statistics, while tax preparers focus on their active work items. We introduced collapsible dashboard statistics so users can free up screen space whenever those metrics aren’t needed, without requiring multiple layouts.</p>
+    <div class="gal"><figure class="cap"><img src="img/t_expanded.webp" alt="Expanded dashboard statistics" loading="lazy"><figcaption>Expanded dashboard statistics</figcaption></figure><figure class="cap"><img src="img/t_collapsed.webp" alt="Collapsed dashboard statistics" loading="lazy"><figcaption>Collapsed dashboard statistics</figcaption></figure></div>
+    <h3>2. Modernize the Kanban experience without changing the mental model</h3>
+    <p>Tracking was already organized around a Kanban workflow users understood well. Rather than reinventing it, we refined it: clearer visual separation between stages, less visual noise, better hierarchy and readability, and cards that are easier to scan during busy tax periods.</p>
+    <h3>3. Reduce friction through direct manipulation</h3>
+    <p>Managing hundreds of tax returns each day requires efficient interactions. We introduced drag-and-drop for moving returns between workflow stages, which reduced the clicks needed for common actions and made status changes feel faster and more intuitive.</p>
+    <div class="gal"><figure class="cap"><img src="img/t_drag.webp" alt="Drag and drop between stages" loading="lazy"><figcaption>Drag and drop between stages</figcaption></figure></div>
+
+    <h2>Design Principles</h2>
+    <ul>
+      <li>Preserve existing user mental models</li>
+      <li>Reduce cognitive load</li>
+      <li>Improve information hierarchy</li>
+      <li>Keep frequent actions accessible</li>
+      <li>Increase flexibility without increasing complexity</li>
+      <li>Modernize without disrupting established workflows</li>
+    </ul>
+
+    <h2>Outcome</h2>
+    <ul>
+      <li>Modernized user experience</li>
+      <li>Faster and smoother daily workflows</li>
+      <li>Improved consistency across the Wolters Kluwer ecosystem</li>
+      <li>Better application performance</li>
+      <li>A scalable foundation for future product evolution</li>
+    </ul>
+
+    <h2>Key Takeaways</h2>
+    <p>Redesigning a mature enterprise product isn’t only about refreshing the interface. The biggest challenge is balancing innovation with familiarity, improving usability while respecting users’ existing workflows, business constraints, and product architecture.</p>
+    <div class="btns"><a class="btn o" href="#ia-fiscale">Previous project: AI and tax preparation</a></div>
+  </div>
+</article>
+</main>
+
+<footer><div class="wrap" data-fr="© 2026 Naomie. Tous droits réservés." data-en="© 2026 Naomie. All rights reserved.">© 2026 Naomie. Tous droits réservés.</div></footer>
+
+<script>
+(function(){
+  var views=['home','ia-fiscale','tracking'];
+  function route(){
+    var h=decodeURIComponent(location.hash.slice(1));
+    var v=views.indexOf(h)>-1?h:'home';
+    document.querySelectorAll('[data-view]').forEach(function(e){e.hidden=e.getAttribute('data-view')!==v||(e.getAttribute('data-lang')||'fr')!==lang;});
+    if(v==='home'&&h){var t=document.getElementById(lang==='en'?h+'-en':h);if(t)t.scrollIntoView();}
+    else{window.scrollTo(0,0);}
+    document.documentElement.lang=lang;
+    document.querySelectorAll('[data-fr]').forEach(function(e){e.textContent=e.getAttribute('data-'+lang);});
+    var b=document.getElementById('lang');b.textContent=lang==='fr'?'EN':'FR';b.setAttribute('aria-label',lang==='fr'?'Switch to English':'Passer au français');
+    document.title=lang==='en'?(v==='home'?'Naomie, UI/UX designer':'Naomie, case study'):(v==='home'?'Naomie, designer UI/UX':'Naomie, étude de cas');
+  }
+  var lang='fr';
+  try{lang=localStorage.getItem('lang')||(/^en/i.test(navigator.language)?'en':'fr');}catch(e){}
+  document.getElementById('lang').addEventListener('click',function(){lang=lang==='fr'?'en':'fr';try{localStorage.setItem('lang',lang);}catch(e){}route();});
+  window.addEventListener('hashchange',route);
+  route();
+})();
+</script>
+</body>
+</html>
